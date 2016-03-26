@@ -9,7 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private String result;//真正的结果
     int op1length = 0;//第一个操作数的长度,为了定位第二个操作数的起止位置
@@ -18,12 +20,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private double op1 = 0, op2 = 0, preRes = 0;//定义操作数1,操作数2,double类型结果
     private TextView text_show, text_result;//表达式和结果显示textView;
     private Button one, two, three, four, five, six, seven, eight, nine, zero, add, min, mul, div, delete, dot, equ;//所有按钮
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();//调用初始化函数init()
     }
+
     //初始化各组件,实现按钮监听事件
     private void init() {
         text_show = (TextView) findViewById(R.id.text_show);
@@ -128,7 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     text_show.append(".");
                 }
                 break;
-            case R.id.add:
+
+            case R.id.add://加法
                 if (!text_show.getText().toString().equals("")) {
                     op1length = text_show.getText().length();
                     op1 = Double.parseDouble(text_show.getText().toString());
@@ -139,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     isOperate = true;
                 }
                 break;
-            case R.id.min:
+            case R.id.min://减法
                 if (!text_show.getText().toString().equals("")) {
                     op1length = text_show.getText().length();
                     op1 = Double.parseDouble(text_show.getText().toString());
@@ -149,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     isOperate = true;
                 }
                 break;
-            case R.id.mul:
+            case R.id.mul://乘法
                 if (!text_show.getText().toString().equals("")) {
                     op1length = text_show.getText().length();
                     op1 = Double.parseDouble(text_show.getText().toString());
@@ -159,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     isOperate = true;
                 }
                 break;
-            case R.id.div:
+            case R.id.div://除法
                 if (!text_show.getText().toString().equals("")) {
                     op1length = text_show.getText().length();
                     op1 = Double.parseDouble(text_show.getText().toString());
@@ -169,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     isOperate = true;
                 }
                 break;
-            case R.id.equ:
+            case R.id.equ:// 计算结果
                 if (isOperate) {
                     equ();
                     isOperate = false;
@@ -177,10 +182,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     text_result.setText("");
                 }
                 break;
-            case R.id.delete:
+            case R.id.delete://后退和删除
 
                 if (!text_show.getText().toString().equals("")) {
                     text_show.setText(text_show.getText().subSequence(0, text_show.getText().length() - 1));
+
                     try {
                         if (isOperate) {
                             equ();
@@ -188,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } catch (Exception e) {
                         text_result.setText("");
                     }
+
+                    isOperate = false;
                 } else {
                     text_show.setText("");
 
@@ -196,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
         }
     }
+
     private void equ() {
         if (!text_show.getText().toString().equals("")) {
             System.out.println("error" + text_show.getText().toString().equals(""));
